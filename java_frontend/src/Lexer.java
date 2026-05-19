@@ -270,7 +270,6 @@ public class Lexer {
      * 合法起始情况包括：
      * - 数字
      * - 带符号数字的 + 或 -
-     * - 形如 .5 的小数点起始
      */
     private boolean isNumberStart(char current) {
         if (Character.isDigit(current)) {
@@ -279,9 +278,6 @@ public class Lexer {
         if ((current == '+' || current == '-') && hasNext()) {
             char next = peekNext();
             return Character.isDigit(next) || next == '.';
-        }
-        if (current == '.' && hasNext()) {
-            return Character.isDigit(peekNext());
         }
         return false;
     }
