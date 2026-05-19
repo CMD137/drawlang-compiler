@@ -1,0 +1,40 @@
+{
+  "commands": [
+    {
+      "type": "line",
+      "x1": 50,
+      "y1": 50,
+      "x2": 300,
+      "y2": 100,
+      "color": "red",
+      "lineWidth": 2
+    },
+    {
+      "type": "rect",
+      "x": 100,
+      "y": 140,
+      "width": 220,
+      "height": 90,
+      "color": "blue",
+      "lineWidth": 3,
+      "fill": "yellow"
+    },
+    {
+      "type": "circle",
+      "cx": 520,
+      "cy": 220,
+      "radius": 70,
+      "color": "black",
+      "lineWidth": 2,
+      "fill": null
+    },
+    {
+      "type": "text",
+      "x": 160,
+      "y": 420,
+      "content": "DrawLang Demo",
+      "color": "green",
+      "fontSize": 24
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+# Word temporary lock files
+~$*.doc
+~$*.docx
+
+# IntelliJ IDEA metadata
+java_frontend/.idea/
+java_frontend/*.iml
+java_frontend/out/
+
+# Java build output
+java_frontend/bin/
+
+# Python cache
+__pycache__/
+*.pyc
