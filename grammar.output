@@ -1,0 +1,774 @@
+Grammar
+
+    0 $accept: program $end
+
+    1 program: stmt_list
+
+    2 stmt_list: stmt_list statement
+    3          | %empty
+
+    4 statement: line_stmt
+    5          | rect_stmt
+    6          | circle_stmt
+    7          | text_stmt
+
+    8 line_stmt: LINE LPAREN number COMMA number COMMA number COMMA number RPAREN COLOR color_name WIDTH number SEMICOLON
+
+    9 rect_stmt: RECT LPAREN number COMMA number COMMA number COMMA number RPAREN COLOR color_name WIDTH number rect_fill_part SEMICOLON
+
+   10 rect_fill_part: FILL color_name
+   11               | NOFILL
+
+   12 circle_stmt: CIRCLE LPAREN number COMMA number COMMA number RPAREN COLOR color_name WIDTH number circle_fill_part SEMICOLON
+
+   13 circle_fill_part: FILL color_name
+   14                 | NOFILL
+
+   15 text_stmt: TEXT LPAREN number COMMA number COMMA string RPAREN COLOR color_name SIZE number SEMICOLON
+
+   16 number: NUMBER
+
+   17 string: STRING
+
+   18 color_name: IDENTIFIER
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    LINE (258) 8
+    RECT (259) 9
+    CIRCLE (260) 12
+    TEXT (261) 15
+    LPAREN (262) 8 9 12 15
+    RPAREN (263) 8 9 12 15
+    COMMA (264) 8 9 12 15
+    SEMICOLON (265) 8 9 12 15
+    COLOR (266) 8 9 12 15
+    WIDTH (267) 8 9 12
+    FILL (268) 10 13
+    NOFILL (269) 11 14
+    SIZE (270) 15
+    NUMBER (271) 16
+    STRING (272) 17
+    IDENTIFIER (273) 18
+
+
+Nonterminals, with rules where they appear
+
+    $accept (19)
+        on left: 0
+    program (20)
+        on left: 1
+        on right: 0
+    stmt_list (21)
+        on left: 2 3
+        on right: 1 2
+    statement (22)
+        on left: 4 5 6 7
+        on right: 2
+    line_stmt (23)
+        on left: 8
+        on right: 4
+    rect_stmt (24)
+        on left: 9
+        on right: 5
+    rect_fill_part (25)
+        on left: 10 11
+        on right: 9
+    circle_stmt (26)
+        on left: 12
+        on right: 6
+    circle_fill_part (27)
+        on left: 13 14
+        on right: 12
+    text_stmt (28)
+        on left: 15
+        on right: 7
+    number (29)
+        on left: 16
+        on right: 8 9 12 15
+    string (30)
+        on left: 17
+        on right: 15
+    color_name (31)
+        on left: 18
+        on right: 8 9 10 12 13 15
+
+
+State 0
+
+    0 $accept: . program $end
+
+    $end    reduce using rule 3 (stmt_list)
+    LINE    reduce using rule 3 (stmt_list)
+    RECT    reduce using rule 3 (stmt_list)
+    CIRCLE  reduce using rule 3 (stmt_list)
+    TEXT    reduce using rule 3 (stmt_list)
+
+    program    go to state 1
+    stmt_list  go to state 2
+
+
+State 1
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 3
+
+
+State 2
+
+    1 program: stmt_list .
+    2 stmt_list: stmt_list . statement
+
+    LINE    shift, and go to state 4
+    RECT    shift, and go to state 5
+    CIRCLE  shift, and go to state 6
+    TEXT    shift, and go to state 7
+
+    $end  reduce using rule 1 (program)
+
+    statement    go to state 8
+    line_stmt    go to state 9
+    rect_stmt    go to state 10
+    circle_stmt  go to state 11
+    text_stmt    go to state 12
+
+
+State 3
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+State 4
+
+    8 line_stmt: LINE . LPAREN number COMMA number COMMA number COMMA number RPAREN COLOR color_name WIDTH number SEMICOLON
+
+    LPAREN  shift, and go to state 13
+
+
+State 5
+
+    9 rect_stmt: RECT . LPAREN number COMMA number COMMA number COMMA number RPAREN COLOR color_name WIDTH number rect_fill_part SEMICOLON
+
+    LPAREN  shift, and go to state 14
+
+
+State 6
+
+   12 circle_stmt: CIRCLE . LPAREN number COMMA number COMMA number RPAREN COLOR color_name WIDTH number circle_fill_part SEMICOLON
+
+    LPAREN  shift, and go to state 15
+
+
+State 7
+
+   15 text_stmt: TEXT . LPAREN number COMMA number COMMA string RPAREN COLOR color_name SIZE number SEMICOLON
+
+    LPAREN  shift, and go to state 16
+
+
+State 8
+
+    2 stmt_list: stmt_list statement .
+
+    $end    reduce using rule 2 (stmt_list)
+    LINE    reduce using rule 2 (stmt_list)
+    RECT    reduce using rule 2 (stmt_list)
+    CIRCLE  reduce using rule 2 (stmt_list)
+    TEXT    reduce using rule 2 (stmt_list)
+
+
+State 9
+
+    4 statement: line_stmt .
+
+    $end    reduce using rule 4 (statement)
+    LINE    reduce using rule 4 (statement)
+    RECT    reduce using rule 4 (statement)
+    CIRCLE  reduce using rule 4 (statement)
+    TEXT    reduce using rule 4 (statement)
+
+
+State 10
+
+    5 statement: rect_stmt .
+
+    $end    reduce using rule 5 (statement)
+    LINE    reduce using rule 5 (statement)
+    RECT    reduce using rule 5 (statement)
+    CIRCLE  reduce using rule 5 (statement)
+    TEXT    reduce using rule 5 (statement)
+
+
+State 11
+
+    6 statement: circle_stmt .
+
+    $end    reduce using rule 6 (statement)
+    LINE    reduce using rule 6 (statement)
+    RECT    reduce using rule 6 (statement)
+    CIRCLE  reduce using rule 6 (statement)
+    TEXT    reduce using rule 6 (statement)
+
+
+State 12
+
+    7 statement: text_stmt .
+
+    $end    reduce using rule 7 (statement)
+    LINE    reduce using rule 7 (statement)
+    RECT    reduce using rule 7 (statement)
+    CIRCLE  reduce using rule 7 (statement)
+    TEXT    reduce using rule 7 (statement)
+
+
+State 13
+
+    8 line_stmt: LINE LPAREN . number COMMA number COMMA number COMMA number RPAREN COLOR color_name WIDTH number SEMICOLON
+
+    NUMBER  shift, and go to state 17
+
+    number  go to state 18
+
+
+State 14
+
+    9 rect_stmt: RECT LPAREN . number COMMA number COMMA number COMMA number RPAREN COLOR color_name WIDTH number rect_fill_part SEMICOLON
+
+    NUMBER  shift, and go to state 17
+
+    number  go to state 19
+
+
+State 15
+
+   12 circle_stmt: CIRCLE LPAREN . number COMMA number COMMA number RPAREN COLOR color_name WIDTH number circle_fill_part SEMICOLON
+
+    NUMBER  shift, and go to state 17
+
+    number  go to state 20
+
+
+State 16
+
+   15 text_stmt: TEXT LPAREN . number COMMA number COMMA string RPAREN COLOR color_name SIZE number SEMICOLON
+
+    NUMBER  shift, and go to state 17
+
+    number  go to state 21
+
+
+State 17
+
+   16 number: NUMBER .
+
+    COMMA  reduce using rule 16 (number)
+
+
+State 18
+
+    8 line_stmt: LINE LPAREN number . COMMA number COMMA number COMMA number RPAREN COLOR color_name WIDTH number SEMICOLON
+
+    COMMA  shift, and go to state 22
+
+
+State 19
+
+    9 rect_stmt: RECT LPAREN number . COMMA number COMMA number COMMA number RPAREN COLOR color_name WIDTH number rect_fill_part SEMICOLON
+
+    COMMA  shift, and go to state 23
+
+
+State 20
+
+   12 circle_stmt: CIRCLE LPAREN number . COMMA number COMMA number RPAREN COLOR color_name WIDTH number circle_fill_part SEMICOLON
+
+    COMMA  shift, and go to state 24
+
+
+State 21
+
+   15 text_stmt: TEXT LPAREN number . COMMA number COMMA string RPAREN COLOR color_name SIZE number SEMICOLON
+
+    COMMA  shift, and go to state 25
+
+
+State 22
+
+    8 line_stmt: LINE LPAREN number COMMA . number COMMA number COMMA number RPAREN COLOR color_name WIDTH number SEMICOLON
+
+    NUMBER  shift, and go to state 17
+
+    number  go to state 26
+
+
+State 23
+
+    9 rect_stmt: RECT LPAREN number COMMA . number COMMA number COMMA number RPAREN COLOR color_name WIDTH number rect_fill_part SEMICOLON
+
+    NUMBER  shift, and go to state 17
+
+    number  go to state 27
+
+
+State 24
+
+   12 circle_stmt: CIRCLE LPAREN number COMMA . number COMMA number RPAREN COLOR color_name WIDTH number circle_fill_part SEMICOLON
+
+    NUMBER  shift, and go to state 17
+
+    number  go to state 28
+
+
+State 25
+
+   15 text_stmt: TEXT LPAREN number COMMA . number COMMA string RPAREN COLOR color_name SIZE number SEMICOLON
+
+    NUMBER  shift, and go to state 17
+
+    number  go to state 29
+
+
+State 26
+
+    8 line_stmt: LINE LPAREN number COMMA number . COMMA number COMMA number RPAREN COLOR color_name WIDTH number SEMICOLON
+
+    COMMA  shift, and go to state 30
+
+
+State 27
+
+    9 rect_stmt: RECT LPAREN number COMMA number . COMMA number COMMA number RPAREN COLOR color_name WIDTH number rect_fill_part SEMICOLON
+
+    COMMA  shift, and go to state 31
+
+
+State 28
+
+   12 circle_stmt: CIRCLE LPAREN number COMMA number . COMMA number RPAREN COLOR color_name WIDTH number circle_fill_part SEMICOLON
+
+    COMMA  shift, and go to state 32
+
+
+State 29
+
+   15 text_stmt: TEXT LPAREN number COMMA number . COMMA string RPAREN COLOR color_name SIZE number SEMICOLON
+
+    COMMA  shift, and go to state 33
+
+
+State 30
+
+    8 line_stmt: LINE LPAREN number COMMA number COMMA . number COMMA number RPAREN COLOR color_name WIDTH number SEMICOLON
+
+    NUMBER  shift, and go to state 17
+
+    number  go to state 34
+
+
+State 31
+
+    9 rect_stmt: RECT LPAREN number COMMA number COMMA . number COMMA number RPAREN COLOR color_name WIDTH number rect_fill_part SEMICOLON
+
+    NUMBER  shift, and go to state 17
+
+    number  go to state 35
+
+
+State 32
+
+   12 circle_stmt: CIRCLE LPAREN number COMMA number COMMA . number RPAREN COLOR color_name WIDTH number circle_fill_part SEMICOLON
+
+    NUMBER  shift, and go to state 76
+
+    number  go to state 36
+
+
+State 33
+
+   15 text_stmt: TEXT LPAREN number COMMA number COMMA . string RPAREN COLOR color_name SIZE number SEMICOLON
+
+    STRING  shift, and go to state 37
+
+    string  go to state 38
+
+
+State 34
+
+    8 line_stmt: LINE LPAREN number COMMA number COMMA number . COMMA number RPAREN COLOR color_name WIDTH number SEMICOLON
+
+    COMMA  shift, and go to state 39
+
+
+State 35
+
+    9 rect_stmt: RECT LPAREN number COMMA number COMMA number . COMMA number RPAREN COLOR color_name WIDTH number rect_fill_part SEMICOLON
+
+    COMMA  shift, and go to state 40
+
+
+State 36
+
+   12 circle_stmt: CIRCLE LPAREN number COMMA number COMMA number . RPAREN COLOR color_name WIDTH number circle_fill_part SEMICOLON
+
+    RPAREN  shift, and go to state 41
+
+
+State 37
+
+   17 string: STRING .
+
+    RPAREN  reduce using rule 17 (string)
+
+
+State 38
+
+   15 text_stmt: TEXT LPAREN number COMMA number COMMA string . RPAREN COLOR color_name SIZE number SEMICOLON
+
+    RPAREN  shift, and go to state 42
+
+
+State 39
+
+    8 line_stmt: LINE LPAREN number COMMA number COMMA number COMMA . number RPAREN COLOR color_name WIDTH number SEMICOLON
+
+    NUMBER  shift, and go to state 76
+
+    number  go to state 43
+
+
+State 40
+
+    9 rect_stmt: RECT LPAREN number COMMA number COMMA number COMMA . number RPAREN COLOR color_name WIDTH number rect_fill_part SEMICOLON
+
+    NUMBER  shift, and go to state 76
+
+    number  go to state 44
+
+
+State 41
+
+   12 circle_stmt: CIRCLE LPAREN number COMMA number COMMA number RPAREN . COLOR color_name WIDTH number circle_fill_part SEMICOLON
+
+    COLOR  shift, and go to state 45
+
+
+State 42
+
+   15 text_stmt: TEXT LPAREN number COMMA number COMMA string RPAREN . COLOR color_name SIZE number SEMICOLON
+
+    COLOR  shift, and go to state 46
+
+
+State 43
+
+    8 line_stmt: LINE LPAREN number COMMA number COMMA number COMMA number . RPAREN COLOR color_name WIDTH number SEMICOLON
+
+    RPAREN  shift, and go to state 47
+
+
+State 44
+
+    9 rect_stmt: RECT LPAREN number COMMA number COMMA number COMMA number . RPAREN COLOR color_name WIDTH number rect_fill_part SEMICOLON
+
+    RPAREN  shift, and go to state 48
+
+
+State 45
+
+   12 circle_stmt: CIRCLE LPAREN number COMMA number COMMA number RPAREN COLOR . color_name WIDTH number circle_fill_part SEMICOLON
+
+    IDENTIFIER  shift, and go to state 49
+
+    color_name  go to state 50
+
+
+State 46
+
+   15 text_stmt: TEXT LPAREN number COMMA number COMMA string RPAREN COLOR . color_name SIZE number SEMICOLON
+
+    IDENTIFIER  shift, and go to state 77
+
+    color_name  go to state 51
+
+
+State 47
+
+    8 line_stmt: LINE LPAREN number COMMA number COMMA number COMMA number RPAREN . COLOR color_name WIDTH number SEMICOLON
+
+    COLOR  shift, and go to state 52
+
+
+State 48
+
+    9 rect_stmt: RECT LPAREN number COMMA number COMMA number COMMA number RPAREN . COLOR color_name WIDTH number rect_fill_part SEMICOLON
+
+    COLOR  shift, and go to state 53
+
+
+State 49
+
+   18 color_name: IDENTIFIER .
+
+    WIDTH  reduce using rule 18 (color_name)
+
+
+State 50
+
+   12 circle_stmt: CIRCLE LPAREN number COMMA number COMMA number RPAREN COLOR color_name . WIDTH number circle_fill_part SEMICOLON
+
+    WIDTH  shift, and go to state 54
+
+
+State 51
+
+   15 text_stmt: TEXT LPAREN number COMMA number COMMA string RPAREN COLOR color_name . SIZE number SEMICOLON
+
+    SIZE  shift, and go to state 55
+
+
+State 52
+
+    8 line_stmt: LINE LPAREN number COMMA number COMMA number COMMA number RPAREN COLOR . color_name WIDTH number SEMICOLON
+
+    IDENTIFIER  shift, and go to state 49
+
+    color_name  go to state 56
+
+
+State 53
+
+    9 rect_stmt: RECT LPAREN number COMMA number COMMA number COMMA number RPAREN COLOR . color_name WIDTH number rect_fill_part SEMICOLON
+
+    IDENTIFIER  shift, and go to state 49
+
+    color_name  go to state 57
+
+
+State 54
+
+   12 circle_stmt: CIRCLE LPAREN number COMMA number COMMA number RPAREN COLOR color_name WIDTH . number circle_fill_part SEMICOLON
+
+    NUMBER  shift, and go to state 78
+
+    number  go to state 58
+
+
+State 55
+
+   15 text_stmt: TEXT LPAREN number COMMA number COMMA string RPAREN COLOR color_name SIZE . number SEMICOLON
+
+    NUMBER  shift, and go to state 79
+
+    number  go to state 59
+
+
+State 56
+
+    8 line_stmt: LINE LPAREN number COMMA number COMMA number COMMA number RPAREN COLOR color_name . WIDTH number SEMICOLON
+
+    WIDTH  shift, and go to state 60
+
+
+State 57
+
+    9 rect_stmt: RECT LPAREN number COMMA number COMMA number COMMA number RPAREN COLOR color_name . WIDTH number rect_fill_part SEMICOLON
+
+    WIDTH  shift, and go to state 61
+
+
+State 58
+
+   12 circle_stmt: CIRCLE LPAREN number COMMA number COMMA number RPAREN COLOR color_name WIDTH number . circle_fill_part SEMICOLON
+
+    FILL    shift, and go to state 62
+    NOFILL  shift, and go to state 63
+
+    circle_fill_part  go to state 64
+
+
+State 59
+
+   15 text_stmt: TEXT LPAREN number COMMA number COMMA string RPAREN COLOR color_name SIZE number . SEMICOLON
+
+    SEMICOLON  shift, and go to state 65
+
+
+State 60
+
+    8 line_stmt: LINE LPAREN number COMMA number COMMA number COMMA number RPAREN COLOR color_name WIDTH . number SEMICOLON
+
+    NUMBER  shift, and go to state 79
+
+    number  go to state 66
+
+
+State 61
+
+    9 rect_stmt: RECT LPAREN number COMMA number COMMA number COMMA number RPAREN COLOR color_name WIDTH . number rect_fill_part SEMICOLON
+
+    NUMBER  shift, and go to state 78
+
+    number  go to state 67
+
+
+State 62
+
+   13 circle_fill_part: FILL . color_name
+
+    IDENTIFIER  shift, and go to state 80
+
+    color_name  go to state 68
+
+
+State 63
+
+   14 circle_fill_part: NOFILL .
+
+    SEMICOLON  reduce using rule 14 (circle_fill_part)
+
+
+State 64
+
+   12 circle_stmt: CIRCLE LPAREN number COMMA number COMMA number RPAREN COLOR color_name WIDTH number circle_fill_part . SEMICOLON
+
+    SEMICOLON  shift, and go to state 69
+
+
+State 65
+
+   15 text_stmt: TEXT LPAREN number COMMA number COMMA string RPAREN COLOR color_name SIZE number SEMICOLON .
+
+    $end    reduce using rule 15 (text_stmt)
+    LINE    reduce using rule 15 (text_stmt)
+    RECT    reduce using rule 15 (text_stmt)
+    CIRCLE  reduce using rule 15 (text_stmt)
+    TEXT    reduce using rule 15 (text_stmt)
+
+
+State 66
+
+    8 line_stmt: LINE LPAREN number COMMA number COMMA number COMMA number RPAREN COLOR color_name WIDTH number . SEMICOLON
+
+    SEMICOLON  shift, and go to state 70
+
+
+State 67
+
+    9 rect_stmt: RECT LPAREN number COMMA number COMMA number COMMA number RPAREN COLOR color_name WIDTH number . rect_fill_part SEMICOLON
+
+    FILL    shift, and go to state 71
+    NOFILL  shift, and go to state 72
+
+    rect_fill_part  go to state 73
+
+
+State 68
+
+   13 circle_fill_part: FILL color_name .
+
+    SEMICOLON  reduce using rule 13 (circle_fill_part)
+
+
+State 69
+
+   12 circle_stmt: CIRCLE LPAREN number COMMA number COMMA number RPAREN COLOR color_name WIDTH number circle_fill_part SEMICOLON .
+
+    $end    reduce using rule 12 (circle_stmt)
+    LINE    reduce using rule 12 (circle_stmt)
+    RECT    reduce using rule 12 (circle_stmt)
+    CIRCLE  reduce using rule 12 (circle_stmt)
+    TEXT    reduce using rule 12 (circle_stmt)
+
+
+State 70
+
+    8 line_stmt: LINE LPAREN number COMMA number COMMA number COMMA number RPAREN COLOR color_name WIDTH number SEMICOLON .
+
+    $end    reduce using rule 8 (line_stmt)
+    LINE    reduce using rule 8 (line_stmt)
+    RECT    reduce using rule 8 (line_stmt)
+    CIRCLE  reduce using rule 8 (line_stmt)
+    TEXT    reduce using rule 8 (line_stmt)
+
+
+State 71
+
+   10 rect_fill_part: FILL . color_name
+
+    IDENTIFIER  shift, and go to state 80
+
+    color_name  go to state 74
+
+
+State 72
+
+   11 rect_fill_part: NOFILL .
+
+    SEMICOLON  reduce using rule 11 (rect_fill_part)
+
+
+State 73
+
+    9 rect_stmt: RECT LPAREN number COMMA number COMMA number COMMA number RPAREN COLOR color_name WIDTH number rect_fill_part . SEMICOLON
+
+    SEMICOLON  shift, and go to state 75
+
+
+State 74
+
+   10 rect_fill_part: FILL color_name .
+
+    SEMICOLON  reduce using rule 10 (rect_fill_part)
+
+
+State 75
+
+    9 rect_stmt: RECT LPAREN number COMMA number COMMA number COMMA number RPAREN COLOR color_name WIDTH number rect_fill_part SEMICOLON .
+
+    $end    reduce using rule 9 (rect_stmt)
+    LINE    reduce using rule 9 (rect_stmt)
+    RECT    reduce using rule 9 (rect_stmt)
+    CIRCLE  reduce using rule 9 (rect_stmt)
+    TEXT    reduce using rule 9 (rect_stmt)
+
+
+State 76
+
+   16 number: NUMBER .
+
+    RPAREN  reduce using rule 16 (number)
+
+
+State 77
+
+   18 color_name: IDENTIFIER .
+
+    SIZE  reduce using rule 18 (color_name)
+
+
+State 78
+
+   16 number: NUMBER .
+
+    FILL    reduce using rule 16 (number)
+    NOFILL  reduce using rule 16 (number)
+
+
+State 79
+
+   16 number: NUMBER .
+
+    SEMICOLON  reduce using rule 16 (number)
+
+
+State 80
+
+   18 color_name: IDENTIFIER .
+
+    SEMICOLON  reduce using rule 18 (color_name)

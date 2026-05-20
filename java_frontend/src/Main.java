@@ -4,38 +4,57 @@ import java.nio.file.Path;
 import java.util.List;
 
 /**
- * 当前 Java 前端的临时测试入口。
+ * 当前 Java 前端的调试入口。
  *
- * 现阶段它只负责驱动 Lexer：
- * - 从文件读取源程序
- * - 调用词法分析器生成 token 序列
- * - 将 token 打印到控制台
+ * 现阶段入口已经接入：
+ * 1. 读取 `.draw` 源文件
+ * 2. 调用 Lexer 生成 token 序列
+ * 3. 调用手写 LR(1) Parser 构造 AST
+ * 4. 输出 AST 摘要，便于核对语法分析结果
  *
- * 后续在加入 LR(1) Parser、AST、语义分析和 JSON IR 后，
- * 这个入口会逐步扩展成完整前端入口。
+ * 后续在加入语义分析和 JSON IR 后，
+ * 这里会继续扩展成完整前端入口。
  */
 public class Main {
     public static void main(String[] args) throws IOException {
-        // 当前阶段为了方便调试，直接固定读取 samples 目录下的测试文件。
-        // 等前端主流程稳定后，再恢复为命令行参数输入。
-        Path inputPath = Path.of("samples", "test.draw");
+        // 当前阶段仍保留一个默认样例路径，方便直接运行调试。
+        // 如果命令行传入了路径参数，则优先使用用户指定文件。
+        Path inputPath = args.length > 0
+            ? Path.of(args[0])
+            : Path.of("samples", "test.draw");
+
         if (!validateInputFile(inputPath)) {
             return;
         }
 
-        // 读取整个源文件，交给 Lexer 统一扫描。
         String source = Files.readString(inputPath);
         Lexer lexer = new Lexer(source);
 
         try {
             List<Token> tokens = lexer.tokenize();
-            // 当前阶段直接打印 token 流，便于检查词法分析结果。
-            for (Token token : tokens) {
-                System.out.println(token);
-            }
+            LRParser parser = new LRParser(tokens);
+            ProgramNode program = parser.parse();
+            printAstSummary(inputPath, program);
         } catch (LexicalException ex) {
-            // 词法错误暂时直接输出到控制台。
             System.out.println(ex.getMessage());
+        } catch (ParseException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    /**
+     * 输出 AST 摘要，便于当前阶段快速确认语法分析是否成功。
+     *
+     * 这里只做轻量打印，不承担 JSON 导出职责。
+     */
+    private static void printAstSummary(Path inputPath, ProgramNode program) {
+        System.out.println("[Parse Success] " + inputPath);
+        System.out.println("Command count: " + program.size());
+
+        int index = 1;
+        for (CommandNode command : program.getCommands()) {
+            System.out.println(index + ". " + command);
+            index++;
         }
     }
 
@@ -45,10 +64,10 @@ public class Main {
      * 当前校验内容包括：
      * 1. 路径是否存在
      * 2. 是否为普通文件
-     * 3. 后缀是否为 .draw
+     * 3. 后缀是否为 `.draw`
      *
      * 说明：
-     * - 这里的后缀校验主要是为了增强使用规范和用户提示
+     * - 这里的后缀校验主要用于增强使用规范和用户提示
      * - 真正的语言合法性仍然由后续的词法、语法、语义分析保证
      */
     private static boolean validateInputFile(Path inputPath) {
