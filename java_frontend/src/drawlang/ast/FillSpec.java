@@ -8,6 +8,8 @@
  * 为了让语法分析阶段直接把这两种形式统一为一个结构，
  * 这里使用 hasFill + fillColor 的二元表示。
  */
+package drawlang.ast;
+
 public class FillSpec {
     private final boolean hasFill;
     private final String fillColor;

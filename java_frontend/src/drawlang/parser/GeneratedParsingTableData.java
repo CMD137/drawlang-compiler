@@ -4,6 +4,8 @@
  * This class intentionally contains only static table-population statements so that
  * the hand-written parser logic and grammar metadata can stay readable.
  */
+package drawlang.parser;
+
 public final class GeneratedParsingTableData {
     private GeneratedParsingTableData() {
     }

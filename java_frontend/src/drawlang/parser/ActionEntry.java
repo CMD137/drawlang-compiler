@@ -7,6 +7,8 @@
  * - ACCEPT 时，value 固定可取 0
  * - ERROR  时，value 固定可取 -1
  */
+package drawlang.parser;
+
 public class ActionEntry {
     private final ActionType type;
     private final int value;

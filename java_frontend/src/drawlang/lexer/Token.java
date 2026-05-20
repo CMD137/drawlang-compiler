@@ -9,6 +9,8 @@
  *
  * 记录行号和列号的目的主要是为了报错时能够精确定位问题位置。
  */
+package drawlang.lexer;
+
 public class Token {
     private final TokenType type;
     private final String lexeme;

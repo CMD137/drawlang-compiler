@@ -4,6 +4,8 @@
  * 对应核心规则中的：
  * CIRCLE(cx, cy, radius) COLOR color WIDTH lineWidth circle_fill_part;
  */
+package drawlang.ast;
+
 public class CircleNode extends CommandNode {
     private final double cx;
     private final double cy;

@@ -4,6 +4,8 @@
  * 对应核心规则中的：
  * TEXT(x, y, content) COLOR color SIZE fontSize;
  */
+package drawlang.ast;
+
 public class TextNode extends CommandNode {
     private final double x;
     private final double y;

@@ -4,6 +4,8 @@
  * 对应核心规则中的：
  * RECT(x, y, width, height) COLOR color WIDTH lineWidth rect_fill_part;
  */
+package drawlang.ast;
+
 public class RectNode extends CommandNode {
     private final double x;
     private final double y;

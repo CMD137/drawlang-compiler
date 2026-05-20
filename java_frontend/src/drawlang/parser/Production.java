@@ -9,6 +9,8 @@
  *
  * 其中 rightSize 用于归约时决定状态栈和值栈要弹出多少项。
  */
+package drawlang.parser;
+
 public class Production {
     private final int id;
     private final NonTerminal left;

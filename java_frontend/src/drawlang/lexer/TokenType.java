@@ -7,6 +7,8 @@
  * 其余关键字用于描述图形属性，如颜色、线宽、填充、字号等。
  * NUMBER、STRING、IDENTIFIER 是带具体词素内容的通用 token。
  */
+package drawlang.lexer;
+
 public enum TokenType {
     // 图形命令关键字
     LINE,

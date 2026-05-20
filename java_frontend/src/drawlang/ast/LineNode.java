@@ -4,6 +4,8 @@
  * 对应核心规则中的：
  * LINE(x1, y1, x2, y2) COLOR color WIDTH lineWidth;
  */
+package drawlang.ast;
+
 public class LineNode extends CommandNode {
     private final double x1;
     private final double y1;

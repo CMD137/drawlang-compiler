@@ -1,3 +1,6 @@
+package drawlang.parser;
+
+import drawlang.lexer.TokenType;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;

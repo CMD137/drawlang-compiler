@@ -13,6 +13,8 @@
  * 2. 后续语义检查器可以按统一入口遍历 AST
  * 3. JSON IR 生成器可以根据命令类型进行分派
  */
+package drawlang.ast;
+
 public abstract class CommandNode {
     /**
      * 返回命令种类名称。
