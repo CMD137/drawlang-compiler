@@ -23,8 +23,10 @@ public class SyntaxTestMain {
         Path.of("..", "tests", "syntax_errors", "missing_comma.draw"),
         Path.of("..", "tests", "syntax_errors", "missing_fill_color.draw"),
         Path.of("..", "tests", "syntax_errors", "unexpected_trailing_token.draw"),
+        Path.of("..", "tests", "syntax_errors", "extra_token_after_statement.draw"),
         Path.of("..", "tests", "semantic_errors", "invalid_color.draw"),
         Path.of("..", "tests", "semantic_errors", "out_of_bounds_circle.draw")
+
     };
 
     public static void main(String[] args) throws IOException {
