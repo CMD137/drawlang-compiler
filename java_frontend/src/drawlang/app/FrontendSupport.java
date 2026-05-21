@@ -6,6 +6,7 @@ import drawlang.lexer.Lexer;
 import drawlang.lexer.Token;
 import drawlang.parser.LRParser;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -84,6 +85,36 @@ public final class FrontendSupport {
      */
     public static String emitJsonIr(ProgramNode program) {
         return JsonEmitter.emit(program);
+    }
+
+    /**
+     * Builds the default Java frontend IR output path beside the input file.
+     *
+     * @param inputPath source file path
+     * @return sibling path using the *_java_frontend.json suffix
+     */
+    public static Path defaultJavaFrontendIrPath(Path inputPath) {
+        String fileName = inputPath.getFileName().toString();
+        String stem = fileName.endsWith(".draw")
+            ? fileName.substring(0, fileName.length() - ".draw".length())
+            : fileName;
+        Path parent = inputPath.getParent();
+        Path outputName = Path.of(stem + "_java_frontend.json");
+        return parent == null ? outputName : parent.resolve(outputName);
+    }
+
+    /**
+     * Writes the shared JSON IR to the default sibling file.
+     *
+     * @param inputPath source file path
+     * @param program AST root node
+     * @return written IR file path
+     * @throws IOException if the IR file cannot be written
+     */
+    public static Path writeDefaultJsonIr(Path inputPath, ProgramNode program) throws IOException {
+        Path outputPath = defaultJavaFrontendIrPath(inputPath);
+        Files.writeString(outputPath, emitJsonIr(program), StandardCharsets.UTF_8);
+        return outputPath;
     }
 
     /**

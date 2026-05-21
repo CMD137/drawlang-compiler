@@ -20,7 +20,6 @@ if not exist "%FLEX%" goto missing_flex
 if not exist "%GCC%" goto missing_gcc
 if not exist "%TOOL_DATA%" goto missing_data
 
-set "BISON_PKGDATADIR=%TOOL_DATA%\bison"
 set "BISON_PKGDATADIR=%TOOL_DATA%"
 set "FLEX_PKGDATADIR=%TOOL_DATA%"
 

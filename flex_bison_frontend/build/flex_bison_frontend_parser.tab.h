@@ -78,7 +78,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 122 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
+#line 130 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
 
     double number;
     char *text;

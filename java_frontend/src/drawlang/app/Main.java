@@ -28,6 +28,8 @@ public class Main {
             FrontendSupport.printAstSummary(inputPath, program);
             System.out.println();
             FrontendSupport.printJsonIr(program);
+            Path outputPath = FrontendSupport.writeDefaultJsonIr(inputPath, program);
+            System.out.println("[IR Output] " + outputPath);
         } catch (LexicalException ex) {
             System.out.println(ex.getMessage());
         } catch (ParseException ex) {

@@ -10,7 +10,7 @@ typedef struct FillSpec FillSpec;
 typedef struct Command Command;
 typedef struct Program Program;
 
-#include "drawlang_parser.tab.h"
+#include "flex_bison_frontend_parser.tab.h"
 
 int g_has_lexical_error = 0;
 char g_error_message[1024];

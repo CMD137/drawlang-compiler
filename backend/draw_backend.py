@@ -1,5 +1,6 @@
 import json
 import sys
+from html import escape
 from pathlib import Path
 
 WIDTH = 800
@@ -64,7 +65,7 @@ def ensure_point_in_canvas(x: float, y: float, label: str) -> None:
         raise BackendError(f"{label} out of canvas: ({x}, {y})")
 
 
-def validate_ir(data: dict) -> list[dict]:
+def check_ir(data: dict) -> dict:
     if not isinstance(data, dict):
         raise BackendError("IR root must be an object")
     commands = data.get("commands")
@@ -76,7 +77,11 @@ def validate_ir(data: dict) -> list[dict]:
         if not isinstance(command, dict):
             raise BackendError(f"Command must be object, got: {command!r}")
         validated.append(validate_command(command))
-    return validated
+    return {"commands": validated}
+
+
+def validate_ir(data: dict) -> list[dict]:
+    return check_ir(data)["commands"]
 
 
 def validate_command(command: dict) -> dict:
@@ -177,6 +182,16 @@ def import_matplotlib():
         ) from exc
 
 
+def import_pillow():
+    try:
+        from PIL import Image, ImageDraw, ImageFont
+        return Image, ImageDraw, ImageFont
+    except ModuleNotFoundError as exc:
+        raise BackendError(
+            "No renderer is installed. Run: python -m pip install matplotlib"
+        ) from exc
+
+
 def configure_fonts(plt) -> None:
     plt.rcParams["font.sans-serif"] = [
         "Microsoft YaHei",
@@ -188,6 +203,19 @@ def configure_fonts(plt) -> None:
 
 
 def draw(commands: list[dict], output_path: Path) -> None:
+    if output_path.suffix.lower() == ".svg":
+        draw_svg(commands, output_path)
+        return
+
+    try:
+        draw_with_matplotlib(commands, output_path)
+    except BackendError as exc:
+        if "matplotlib is not installed" not in str(exc):
+            raise
+        draw_with_pillow(commands, output_path)
+
+
+def draw_with_matplotlib(commands: list[dict], output_path: Path) -> None:
     plt, CirclePatch, RectanglePatch = import_matplotlib()
     configure_fonts(plt)
 
@@ -242,19 +270,152 @@ def draw(commands: list[dict], output_path: Path) -> None:
     plt.close(fig)
 
 
+def draw_with_pillow(commands: list[dict], output_path: Path) -> None:
+    Image, ImageDraw, ImageFont = import_pillow()
+    image = Image.new("RGB", (WIDTH, HEIGHT), "white")
+    canvas = ImageDraw.Draw(image)
+
+    for command in commands:
+        cmd_type = command["type"]
+        if cmd_type == "line":
+            canvas.line(
+                [(command["x1"], command["y1"]), (command["x2"], command["y2"])],
+                fill=command["color"],
+                width=max(1, round(command["lineWidth"])),
+            )
+        elif cmd_type == "rect":
+            xy = [
+                command["x"],
+                command["y"],
+                command["x"] + command["width"],
+                command["y"] + command["height"],
+            ]
+            canvas.rectangle(
+                xy,
+                outline=command["color"],
+                fill=command["fill"],
+                width=max(1, round(command["lineWidth"])),
+            )
+        elif cmd_type == "circle":
+            xy = [
+                command["cx"] - command["radius"],
+                command["cy"] - command["radius"],
+                command["cx"] + command["radius"],
+                command["cy"] + command["radius"],
+            ]
+            canvas.ellipse(
+                xy,
+                outline=command["color"],
+                fill=command["fill"],
+                width=max(1, round(command["lineWidth"])),
+            )
+        elif cmd_type == "text":
+            try:
+                font = ImageFont.truetype("arial.ttf", round(command["fontSize"]))
+            except OSError:
+                font = ImageFont.load_default()
+            canvas.text(
+                (command["x"], command["y"]),
+                command["content"],
+                fill=command["color"],
+                font=font,
+            )
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    image.save(output_path)
+
+
+def svg_number(value: float) -> str:
+    if float(value).is_integer():
+        return str(int(value))
+    return f"{value:g}"
+
+
+def draw_svg(commands: list[dict], output_path: Path) -> None:
+    lines = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" height="{HEIGHT}" viewBox="0 0 {WIDTH} {HEIGHT}">',
+        '<rect width="100%" height="100%" fill="white"/>',
+    ]
+
+    for command in commands:
+        cmd_type = command["type"]
+        if cmd_type == "line":
+            lines.append(
+                '<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{color}" stroke-width="{line_width}"/>'.format(
+                    x1=svg_number(command["x1"]),
+                    y1=svg_number(command["y1"]),
+                    x2=svg_number(command["x2"]),
+                    y2=svg_number(command["y2"]),
+                    color=command["color"],
+                    line_width=svg_number(command["lineWidth"]),
+                )
+            )
+        elif cmd_type == "rect":
+            fill = command["fill"] if command["fill"] is not None else "none"
+            lines.append(
+                '<rect x="{x}" y="{y}" width="{width}" height="{height}" stroke="{color}" stroke-width="{line_width}" fill="{fill}"/>'.format(
+                    x=svg_number(command["x"]),
+                    y=svg_number(command["y"]),
+                    width=svg_number(command["width"]),
+                    height=svg_number(command["height"]),
+                    color=command["color"],
+                    line_width=svg_number(command["lineWidth"]),
+                    fill=fill,
+                )
+            )
+        elif cmd_type == "circle":
+            fill = command["fill"] if command["fill"] is not None else "none"
+            lines.append(
+                '<circle cx="{cx}" cy="{cy}" r="{radius}" stroke="{color}" stroke-width="{line_width}" fill="{fill}"/>'.format(
+                    cx=svg_number(command["cx"]),
+                    cy=svg_number(command["cy"]),
+                    radius=svg_number(command["radius"]),
+                    color=command["color"],
+                    line_width=svg_number(command["lineWidth"]),
+                    fill=fill,
+                )
+            )
+        elif cmd_type == "text":
+            lines.append(
+                '<text x="{x}" y="{y}" fill="{color}" font-size="{font_size}" dominant-baseline="hanging">{content}</text>'.format(
+                    x=svg_number(command["x"]),
+                    y=svg_number(command["y"]),
+                    color=command["color"],
+                    font_size=svg_number(command["fontSize"]),
+                    content=escape(command["content"]),
+                )
+            )
+
+    lines.append("</svg>")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def render(checked_ir: dict, output_path: Path) -> None:
+    commands = checked_ir.get("commands")
+    if not isinstance(commands, list):
+        raise BackendError("Checked IR field 'commands' must be a list")
+    draw(commands, output_path)
+
+
+def default_output_path(input_path: Path) -> Path:
+    return input_path.with_suffix(".svg")
+
+
 def main(argv: list[str]) -> int:
-    if len(argv) != 3:
-        print("Usage: python backend\\draw_backend.py <input_ir.json> <output.png>")
+    if len(argv) not in (2, 3):
+        print("Usage: python backend\\draw_backend.py <input_ir.json> [output.png]")
         return 1
 
     input_path = Path(argv[1])
-    output_path = Path(argv[2])
+    output_path = Path(argv[2]) if len(argv) == 3 else default_output_path(input_path)
 
     try:
-        data = load_ir(input_path)
-        commands = validate_ir(data)
-        draw(commands, output_path)
-        print(f"PNG generated: {output_path}")
+        ir = load_ir(input_path)
+        checked_ir = check_ir(ir)
+        if checked_ir is not None:
+            render(checked_ir, output_path)
+        print(f"Image generated: {output_path}")
         return 0
     except BackendError as exc:
         print(f"[Backend Error] {exc}")

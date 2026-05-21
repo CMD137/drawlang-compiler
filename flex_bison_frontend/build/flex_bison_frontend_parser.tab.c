@@ -71,6 +71,7 @@
 
 #include <ctype.h>
 #include <math.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -162,14 +163,20 @@ static void *dl_xrealloc(void *ptr, size_t size);
 
 static void print_ast_summary(const char *input_path, const Program *program);
 static void print_json_ir(const Program *program);
+static int write_json_ir_file(const Program *program, const char *output_path);
 static void print_ast_command(size_t index, const Command *command);
 static void print_json_command(const Command *command, int has_next);
 static void print_ast_number(double value);
 static void print_json_number(double value);
 static void print_json_string(const char *text);
+static void json_printf(const char *format, ...);
+static void json_puts(const char *text);
+static void json_putchar(int ch);
 static int is_integer_like(double value);
 
 static int has_draw_extension(const char *path);
+static int make_default_ir_path(const char *input_path, const char *suffix,
+                                char *output_path, size_t output_size);
 static void reset_driver_state(void);
 static void normalize_expected_list(char *text);
 static void store_syntax_error(const char *message, int line, int column);
@@ -183,9 +190,10 @@ void drawlang_reset_lexer_state(void);
 
 Program *g_program_result = NULL;
 int g_has_syntax_error = 0;
+static FILE *g_json_output = NULL;
 
 
-#line 189 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
+#line 197 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -633,10 +641,10 @@ static const yytype_int8 yytranslate[] =
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
-static const yytype_uint8 yyrline[] =
+static const yytype_int16 yyrline[] =
 {
-       0,   145,   145,   153,   159,   165,   169,   173,   177,   184,
-     192,   200,   204,   211,   219,   223,   230,   238,   245,   252
+       0,   153,   153,   161,   167,   173,   177,   181,   185,   192,
+     200,   208,   212,   219,   227,   231,   238,   246,   253,   260
 };
 #endif
 
@@ -1618,153 +1626,153 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* program: stmt_list  */
-#line 146 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
+#line 154 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
     {
         g_program_result = (yyvsp[0].program);
         (yyval.program) = (yyvsp[0].program);
     }
-#line 1627 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
+#line 1635 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
   case 3: /* stmt_list: stmt_list statement  */
-#line 154 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
+#line 162 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
       {
           program_add((yyvsp[-1].program), (yyvsp[0].command));
           (yyval.program) = (yyvsp[-1].program);
       }
-#line 1636 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
-    break;
-
-  case 4: /* stmt_list: %empty  */
-#line 159 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
-      {
-          (yyval.program) = program_create();
-      }
 #line 1644 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
-  case 5: /* statement: line_stmt  */
-#line 166 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
+  case 4: /* stmt_list: %empty  */
+#line 167 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
       {
-          (yyval.command) = (yyvsp[0].command);
+          (yyval.program) = program_create();
       }
 #line 1652 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
-  case 6: /* statement: rect_stmt  */
-#line 170 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
+  case 5: /* statement: line_stmt  */
+#line 174 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
       {
           (yyval.command) = (yyvsp[0].command);
       }
 #line 1660 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
-  case 7: /* statement: circle_stmt  */
-#line 174 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
+  case 6: /* statement: rect_stmt  */
+#line 178 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
       {
           (yyval.command) = (yyvsp[0].command);
       }
 #line 1668 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
-  case 8: /* statement: text_stmt  */
-#line 178 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
+  case 7: /* statement: circle_stmt  */
+#line 182 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
       {
           (yyval.command) = (yyvsp[0].command);
       }
 #line 1676 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
-  case 9: /* line_stmt: LINE LPAREN number COMMA number COMMA number COMMA number RPAREN COLOR color_name WIDTH number SEMICOLON  */
+  case 8: /* statement: text_stmt  */
 #line 186 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
-    {
-        (yyval.command) = command_create_line((yyvsp[-12].number), (yyvsp[-10].number), (yyvsp[-8].number), (yyvsp[-6].number), (yyvsp[-3].text), (yyvsp[-1].number));
-    }
+      {
+          (yyval.command) = (yyvsp[0].command);
+      }
 #line 1684 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
-  case 10: /* rect_stmt: RECT LPAREN number COMMA number COMMA number COMMA number RPAREN COLOR color_name WIDTH number rect_fill_part SEMICOLON  */
+  case 9: /* line_stmt: LINE LPAREN number COMMA number COMMA number COMMA number RPAREN COLOR color_name WIDTH number SEMICOLON  */
 #line 194 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
     {
-        (yyval.command) = command_create_rect((yyvsp[-13].number), (yyvsp[-11].number), (yyvsp[-9].number), (yyvsp[-7].number), (yyvsp[-4].text), (yyvsp[-2].number), (yyvsp[-1].fill));
+        (yyval.command) = command_create_line((yyvsp[-12].number), (yyvsp[-10].number), (yyvsp[-8].number), (yyvsp[-6].number), (yyvsp[-3].text), (yyvsp[-1].number));
     }
 #line 1692 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
-  case 11: /* rect_fill_part: FILL color_name  */
-#line 201 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
-      {
-          (yyval.fill) = fill_spec_create(1, (yyvsp[0].text));
-      }
+  case 10: /* rect_stmt: RECT LPAREN number COMMA number COMMA number COMMA number RPAREN COLOR color_name WIDTH number rect_fill_part SEMICOLON  */
+#line 202 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
+    {
+        (yyval.command) = command_create_rect((yyvsp[-13].number), (yyvsp[-11].number), (yyvsp[-9].number), (yyvsp[-7].number), (yyvsp[-4].text), (yyvsp[-2].number), (yyvsp[-1].fill));
+    }
 #line 1700 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
-  case 12: /* rect_fill_part: NOFILL  */
-#line 205 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
+  case 11: /* rect_fill_part: FILL color_name  */
+#line 209 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
       {
-          (yyval.fill) = fill_spec_create(0, NULL);
+          (yyval.fill) = fill_spec_create(1, (yyvsp[0].text));
       }
 #line 1708 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
-  case 13: /* circle_stmt: CIRCLE LPAREN number COMMA number COMMA number RPAREN COLOR color_name WIDTH number circle_fill_part SEMICOLON  */
+  case 12: /* rect_fill_part: NOFILL  */
 #line 213 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
-    {
-        (yyval.command) = command_create_circle((yyvsp[-11].number), (yyvsp[-9].number), (yyvsp[-7].number), (yyvsp[-4].text), (yyvsp[-2].number), (yyvsp[-1].fill));
-    }
+      {
+          (yyval.fill) = fill_spec_create(0, NULL);
+      }
 #line 1716 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
-  case 14: /* circle_fill_part: FILL color_name  */
-#line 220 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
-      {
-          (yyval.fill) = fill_spec_create(1, (yyvsp[0].text));
-      }
+  case 13: /* circle_stmt: CIRCLE LPAREN number COMMA number COMMA number RPAREN COLOR color_name WIDTH number circle_fill_part SEMICOLON  */
+#line 221 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
+    {
+        (yyval.command) = command_create_circle((yyvsp[-11].number), (yyvsp[-9].number), (yyvsp[-7].number), (yyvsp[-4].text), (yyvsp[-2].number), (yyvsp[-1].fill));
+    }
 #line 1724 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
-  case 15: /* circle_fill_part: NOFILL  */
-#line 224 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
+  case 14: /* circle_fill_part: FILL color_name  */
+#line 228 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
       {
-          (yyval.fill) = fill_spec_create(0, NULL);
+          (yyval.fill) = fill_spec_create(1, (yyvsp[0].text));
       }
 #line 1732 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
-  case 16: /* text_stmt: TEXT LPAREN number COMMA number COMMA string RPAREN COLOR color_name SIZE number SEMICOLON  */
+  case 15: /* circle_fill_part: NOFILL  */
 #line 232 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
-    {
-        (yyval.command) = command_create_text((yyvsp[-10].number), (yyvsp[-8].number), (yyvsp[-6].text), (yyvsp[-3].text), (yyvsp[-1].number));
-    }
+      {
+          (yyval.fill) = fill_spec_create(0, NULL);
+      }
 #line 1740 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
-  case 17: /* number: NUMBER  */
-#line 239 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
+  case 16: /* text_stmt: TEXT LPAREN number COMMA number COMMA string RPAREN COLOR color_name SIZE number SEMICOLON  */
+#line 240 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
     {
-        (yyval.number) = (yyvsp[0].number);
+        (yyval.command) = command_create_text((yyvsp[-10].number), (yyvsp[-8].number), (yyvsp[-6].text), (yyvsp[-3].text), (yyvsp[-1].number));
     }
 #line 1748 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
-  case 18: /* string: STRING  */
-#line 246 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
+  case 17: /* number: NUMBER  */
+#line 247 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
     {
-        (yyval.text) = (yyvsp[0].text);
+        (yyval.number) = (yyvsp[0].number);
     }
 #line 1756 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
-  case 19: /* color_name: IDENTIFIER  */
-#line 253 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
+  case 18: /* string: STRING  */
+#line 254 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
     {
         (yyval.text) = (yyvsp[0].text);
     }
 #line 1764 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
+  case 19: /* color_name: IDENTIFIER  */
+#line 261 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
+    {
+        (yyval.text) = (yyvsp[0].text);
+    }
+#line 1772 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
+    break;
 
-#line 1768 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
+
+#line 1776 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
 
       default: break;
     }
@@ -1993,7 +2001,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 258 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
+#line 266 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
 
 
 void yyerror(const char *message) {
@@ -2007,6 +2015,7 @@ int main(int argc, char **argv) {
     const char *input_path;
     FILE *input_file;
     int parse_result;
+    char output_path[1024];
 
     input_path = argc > 1 ? argv[1] : "samples/test.draw";
 
@@ -2037,6 +2046,19 @@ int main(int argc, char **argv) {
     print_ast_summary(input_path, g_program_result);
     puts("");
     print_json_ir(g_program_result);
+    if (!make_default_ir_path(input_path, "_flex_bison_frontend.json", output_path, sizeof(output_path))) {
+        printf("[IR Error] Failed to build output path for: %s\n", input_path);
+        program_free(g_program_result);
+        g_program_result = NULL;
+        return 1;
+    }
+    if (!write_json_ir_file(g_program_result, output_path)) {
+        printf("[IR Error] Failed to write JSON IR: %s\n", output_path);
+        program_free(g_program_result);
+        g_program_result = NULL;
+        return 1;
+    }
+    printf("[IR Output] %s\n", output_path);
     program_free(g_program_result);
     g_program_result = NULL;
     return 0;
@@ -2071,6 +2093,49 @@ static int has_draw_extension(const char *path) {
             return 0;
         }
     }
+    return 1;
+}
+
+static int make_default_ir_path(const char *input_path, const char *suffix,
+                                char *output_path, size_t output_size) {
+    const char *last_backslash;
+    const char *last_slash;
+    const char *last_separator;
+    const char *file_start;
+    const char *dot;
+    size_t prefix_length;
+    size_t stem_length;
+    size_t suffix_length;
+
+    if (input_path == NULL || suffix == NULL || output_path == NULL || output_size == 0U) {
+        return 0;
+    }
+
+    last_backslash = strrchr(input_path, '\\');
+    last_slash = strrchr(input_path, '/');
+    if (last_backslash != NULL && last_slash != NULL) {
+        last_separator = last_backslash > last_slash ? last_backslash : last_slash;
+    } else {
+        last_separator = last_backslash != NULL ? last_backslash : last_slash;
+    }
+
+    file_start = last_separator == NULL ? input_path : last_separator + 1;
+    dot = strrchr(file_start, '.');
+    if (dot == NULL) {
+        dot = input_path + strlen(input_path);
+    }
+
+    prefix_length = (size_t) (file_start - input_path);
+    stem_length = (size_t) (dot - file_start);
+    suffix_length = strlen(suffix);
+    if (prefix_length + stem_length + suffix_length + 1U > output_size) {
+        return 0;
+    }
+
+    memcpy(output_path, input_path, prefix_length);
+    memcpy(output_path + prefix_length, file_start, stem_length);
+    memcpy(output_path + prefix_length + stem_length, suffix, suffix_length);
+    output_path[prefix_length + stem_length + suffix_length] = '\0';
     return 1;
 }
 
@@ -2377,51 +2442,76 @@ static void print_json_number(double value) {
     }
 
     if (is_integer_like(value)) {
-        printf("%.0f", value);
+        json_printf("%.0f", value);
     } else {
-        printf("%.15g", value);
+        json_printf("%.15g", value);
     }
 }
 
 static void print_json_string(const char *text) {
     const unsigned char *cursor;
 
-    putchar('"');
+    json_putchar('"');
     cursor = (const unsigned char *) text;
     while (*cursor != '\0') {
         switch (*cursor) {
             case '"':
-                printf("\\\"");
+                json_printf("\\\"");
                 break;
             case '\\':
-                printf("\\\\");
+                json_printf("\\\\");
                 break;
             case '\b':
-                printf("\\b");
+                json_printf("\\b");
                 break;
             case '\f':
-                printf("\\f");
+                json_printf("\\f");
                 break;
             case '\n':
-                printf("\\n");
+                json_printf("\\n");
                 break;
             case '\r':
-                printf("\\r");
+                json_printf("\\r");
                 break;
             case '\t':
-                printf("\\t");
+                json_printf("\\t");
                 break;
             default:
                 if (*cursor < 0x20U) {
-                    printf("\\u%04x", (unsigned int) *cursor);
+                    json_printf("\\u%04x", (unsigned int) *cursor);
                 } else {
-                    putchar((int) *cursor);
+                    json_putchar((int) *cursor);
                 }
                 break;
         }
         cursor++;
     }
-    putchar('"');
+    json_putchar('"');
+}
+
+static void json_printf(const char *format, ...) {
+    va_list args;
+    FILE *out;
+
+    out = g_json_output == NULL ? stdout : g_json_output;
+    va_start(args, format);
+    vfprintf(out, format, args);
+    va_end(args);
+}
+
+static void json_puts(const char *text) {
+    FILE *out;
+
+    out = g_json_output == NULL ? stdout : g_json_output;
+    fputs(text, out);
+    fputc('\n', out);
+}
+
+static void json_putchar(int ch) {
+    FILE *out;
+
+    out = g_json_output == NULL ? stdout : g_json_output;
+    fputc(ch, out);
 }
 
 static void print_ast_summary(const char *input_path, const Program *program) {
@@ -2496,98 +2586,126 @@ static void print_ast_command(size_t index, const Command *command) {
 
 static void print_json_ir(const Program *program) {
     size_t i;
+    FILE *previous_output;
 
-    puts("[JSON IR]");
-    puts("{");
-    puts("  \"commands\": [");
+    previous_output = g_json_output;
+    g_json_output = stdout;
+    json_puts("[JSON IR]");
+    json_puts("{");
+    json_puts("  \"commands\": [");
     for (i = 0U; i < program->count; i++) {
         print_json_command(program->commands[i], i + 1U < program->count);
     }
-    puts("  ]");
-    puts("}");
+    json_puts("  ]");
+    json_puts("}");
+    g_json_output = previous_output;
+}
+
+static int write_json_ir_file(const Program *program, const char *output_path) {
+    size_t i;
+    FILE *file;
+    FILE *previous_output;
+
+    file = fopen(output_path, "wb");
+    if (file == NULL) {
+        return 0;
+    }
+
+    previous_output = g_json_output;
+    g_json_output = file;
+    json_puts("{");
+    json_puts("  \"commands\": [");
+    for (i = 0U; i < program->count; i++) {
+        print_json_command(program->commands[i], i + 1U < program->count);
+    }
+    json_puts("  ]");
+    json_puts("}");
+    g_json_output = previous_output;
+    fclose(file);
+    return 1;
 }
 
 static void print_json_command(const Command *command, int has_next) {
-    printf("    {\n");
+    json_printf("    {\n");
 
     switch (command->type) {
         case CMD_LINE:
-            printf("      \"type\": \"line\",\n");
-            printf("      \"x1\": ");
+            json_printf("      \"type\": \"line\",\n");
+            json_printf("      \"x1\": ");
             print_json_number(command->data.line.x1);
-            printf(",\n      \"y1\": ");
+            json_printf(",\n      \"y1\": ");
             print_json_number(command->data.line.y1);
-            printf(",\n      \"x2\": ");
+            json_printf(",\n      \"x2\": ");
             print_json_number(command->data.line.x2);
-            printf(",\n      \"y2\": ");
+            json_printf(",\n      \"y2\": ");
             print_json_number(command->data.line.y2);
-            printf(",\n      \"color\": ");
+            json_printf(",\n      \"color\": ");
             print_json_string(command->data.line.color);
-            printf(",\n      \"lineWidth\": ");
+            json_printf(",\n      \"lineWidth\": ");
             print_json_number(command->data.line.line_width);
-            printf("\n");
+            json_printf("\n");
             break;
         case CMD_RECT:
-            printf("      \"type\": \"rect\",\n");
-            printf("      \"x\": ");
+            json_printf("      \"type\": \"rect\",\n");
+            json_printf("      \"x\": ");
             print_json_number(command->data.rect.x);
-            printf(",\n      \"y\": ");
+            json_printf(",\n      \"y\": ");
             print_json_number(command->data.rect.y);
-            printf(",\n      \"width\": ");
+            json_printf(",\n      \"width\": ");
             print_json_number(command->data.rect.width);
-            printf(",\n      \"height\": ");
+            json_printf(",\n      \"height\": ");
             print_json_number(command->data.rect.height);
-            printf(",\n      \"color\": ");
+            json_printf(",\n      \"color\": ");
             print_json_string(command->data.rect.color);
-            printf(",\n      \"lineWidth\": ");
+            json_printf(",\n      \"lineWidth\": ");
             print_json_number(command->data.rect.line_width);
-            printf(",\n      \"fill\": ");
+            json_printf(",\n      \"fill\": ");
             if (command->data.rect.fill->has_fill) {
                 print_json_string(command->data.rect.fill->fill_color);
             } else {
-                printf("null");
+                json_printf("null");
             }
-            printf("\n");
+            json_printf("\n");
             break;
         case CMD_CIRCLE:
-            printf("      \"type\": \"circle\",\n");
-            printf("      \"cx\": ");
+            json_printf("      \"type\": \"circle\",\n");
+            json_printf("      \"cx\": ");
             print_json_number(command->data.circle.cx);
-            printf(",\n      \"cy\": ");
+            json_printf(",\n      \"cy\": ");
             print_json_number(command->data.circle.cy);
-            printf(",\n      \"radius\": ");
+            json_printf(",\n      \"radius\": ");
             print_json_number(command->data.circle.radius);
-            printf(",\n      \"color\": ");
+            json_printf(",\n      \"color\": ");
             print_json_string(command->data.circle.color);
-            printf(",\n      \"lineWidth\": ");
+            json_printf(",\n      \"lineWidth\": ");
             print_json_number(command->data.circle.line_width);
-            printf(",\n      \"fill\": ");
+            json_printf(",\n      \"fill\": ");
             if (command->data.circle.fill->has_fill) {
                 print_json_string(command->data.circle.fill->fill_color);
             } else {
-                printf("null");
+                json_printf("null");
             }
-            printf("\n");
+            json_printf("\n");
             break;
         case CMD_TEXT:
-            printf("      \"type\": \"text\",\n");
-            printf("      \"x\": ");
+            json_printf("      \"type\": \"text\",\n");
+            json_printf("      \"x\": ");
             print_json_number(command->data.text.x);
-            printf(",\n      \"y\": ");
+            json_printf(",\n      \"y\": ");
             print_json_number(command->data.text.y);
-            printf(",\n      \"content\": ");
+            json_printf(",\n      \"content\": ");
             print_json_string(command->data.text.content);
-            printf(",\n      \"color\": ");
+            json_printf(",\n      \"color\": ");
             print_json_string(command->data.text.color);
-            printf(",\n      \"fontSize\": ");
+            json_printf(",\n      \"fontSize\": ");
             print_json_number(command->data.text.font_size);
-            printf("\n");
+            json_printf("\n");
             break;
     }
 
-    printf("    }");
+    json_printf("    }");
     if (has_next) {
-        printf(",");
+        json_printf(",");
     }
-    printf("\n");
+    json_printf("\n");
 }
