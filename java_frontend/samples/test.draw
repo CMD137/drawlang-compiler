@@ -1,5 +1,5 @@
 // Java frontend temporary test input
 LINE(50, 50, 300, 100) COLOR red WIDTH 2;
-RECT(100, 140, 220, 90) COLOR blue WIDTH 3 FILL yellow;
+RECT(100, 140, 220, 90) COLOR blue WIDTH 3 FILL green;
 CIRCLE(520, 220, 70) COLOR black WIDTH 2 NOFILL;
 TEXT(160, 420, "DrawLang Demo") COLOR green SIZE 24;

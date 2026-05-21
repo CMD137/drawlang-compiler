@@ -1,1 +1,1 @@
-RECT(100, 140, 220, 90) COLOR cyan WIDTH 3 FILL yellow;
+RECT(100, 140, 220, 90) COLOR cyan WIDTH 3 FILL green;
