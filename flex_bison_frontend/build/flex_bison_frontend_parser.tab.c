@@ -67,7 +67,7 @@
 
 
 /* First part of user prologue.  */
-#line 1 "src\\drawlang_parser.y"
+#line 1 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
 
 #include <ctype.h>
 #include <math.h>
@@ -185,7 +185,7 @@ Program *g_program_result = NULL;
 int g_has_syntax_error = 0;
 
 
-#line 189 "build\\drawlang_parser.tab.c"
+#line 189 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -208,7 +208,7 @@ int g_has_syntax_error = 0;
 #  endif
 # endif
 
-#include "drawlang_parser.tab.h"
+#include "flex_bison_frontend_parser.tab.h"
 /* Symbol kind.  */
 enum yysymbol_kind_t
 {
@@ -1618,153 +1618,153 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* program: stmt_list  */
-#line 146 "src\\drawlang_parser.y"
+#line 146 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
     {
         g_program_result = (yyvsp[0].program);
         (yyval.program) = (yyvsp[0].program);
     }
-#line 1627 "build\\drawlang_parser.tab.c"
+#line 1627 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
   case 3: /* stmt_list: stmt_list statement  */
-#line 154 "src\\drawlang_parser.y"
+#line 154 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
       {
           program_add((yyvsp[-1].program), (yyvsp[0].command));
           (yyval.program) = (yyvsp[-1].program);
       }
-#line 1636 "build\\drawlang_parser.tab.c"
+#line 1636 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
   case 4: /* stmt_list: %empty  */
-#line 159 "src\\drawlang_parser.y"
+#line 159 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
       {
           (yyval.program) = program_create();
       }
-#line 1644 "build\\drawlang_parser.tab.c"
+#line 1644 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
   case 5: /* statement: line_stmt  */
-#line 166 "src\\drawlang_parser.y"
+#line 166 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
       {
           (yyval.command) = (yyvsp[0].command);
       }
-#line 1652 "build\\drawlang_parser.tab.c"
+#line 1652 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
   case 6: /* statement: rect_stmt  */
-#line 170 "src\\drawlang_parser.y"
+#line 170 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
       {
           (yyval.command) = (yyvsp[0].command);
       }
-#line 1660 "build\\drawlang_parser.tab.c"
+#line 1660 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
   case 7: /* statement: circle_stmt  */
-#line 174 "src\\drawlang_parser.y"
+#line 174 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
       {
           (yyval.command) = (yyvsp[0].command);
       }
-#line 1668 "build\\drawlang_parser.tab.c"
+#line 1668 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
   case 8: /* statement: text_stmt  */
-#line 178 "src\\drawlang_parser.y"
+#line 178 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
       {
           (yyval.command) = (yyvsp[0].command);
       }
-#line 1676 "build\\drawlang_parser.tab.c"
+#line 1676 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
   case 9: /* line_stmt: LINE LPAREN number COMMA number COMMA number COMMA number RPAREN COLOR color_name WIDTH number SEMICOLON  */
-#line 186 "src\\drawlang_parser.y"
+#line 186 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
     {
         (yyval.command) = command_create_line((yyvsp[-12].number), (yyvsp[-10].number), (yyvsp[-8].number), (yyvsp[-6].number), (yyvsp[-3].text), (yyvsp[-1].number));
     }
-#line 1684 "build\\drawlang_parser.tab.c"
+#line 1684 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
   case 10: /* rect_stmt: RECT LPAREN number COMMA number COMMA number COMMA number RPAREN COLOR color_name WIDTH number rect_fill_part SEMICOLON  */
-#line 194 "src\\drawlang_parser.y"
+#line 194 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
     {
         (yyval.command) = command_create_rect((yyvsp[-13].number), (yyvsp[-11].number), (yyvsp[-9].number), (yyvsp[-7].number), (yyvsp[-4].text), (yyvsp[-2].number), (yyvsp[-1].fill));
     }
-#line 1692 "build\\drawlang_parser.tab.c"
+#line 1692 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
   case 11: /* rect_fill_part: FILL color_name  */
-#line 201 "src\\drawlang_parser.y"
+#line 201 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
       {
           (yyval.fill) = fill_spec_create(1, (yyvsp[0].text));
       }
-#line 1700 "build\\drawlang_parser.tab.c"
+#line 1700 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
   case 12: /* rect_fill_part: NOFILL  */
-#line 205 "src\\drawlang_parser.y"
+#line 205 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
       {
           (yyval.fill) = fill_spec_create(0, NULL);
       }
-#line 1708 "build\\drawlang_parser.tab.c"
+#line 1708 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
   case 13: /* circle_stmt: CIRCLE LPAREN number COMMA number COMMA number RPAREN COLOR color_name WIDTH number circle_fill_part SEMICOLON  */
-#line 213 "src\\drawlang_parser.y"
+#line 213 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
     {
         (yyval.command) = command_create_circle((yyvsp[-11].number), (yyvsp[-9].number), (yyvsp[-7].number), (yyvsp[-4].text), (yyvsp[-2].number), (yyvsp[-1].fill));
     }
-#line 1716 "build\\drawlang_parser.tab.c"
+#line 1716 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
   case 14: /* circle_fill_part: FILL color_name  */
-#line 220 "src\\drawlang_parser.y"
+#line 220 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
       {
           (yyval.fill) = fill_spec_create(1, (yyvsp[0].text));
       }
-#line 1724 "build\\drawlang_parser.tab.c"
+#line 1724 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
   case 15: /* circle_fill_part: NOFILL  */
-#line 224 "src\\drawlang_parser.y"
+#line 224 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
       {
           (yyval.fill) = fill_spec_create(0, NULL);
       }
-#line 1732 "build\\drawlang_parser.tab.c"
+#line 1732 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
   case 16: /* text_stmt: TEXT LPAREN number COMMA number COMMA string RPAREN COLOR color_name SIZE number SEMICOLON  */
-#line 232 "src\\drawlang_parser.y"
+#line 232 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
     {
         (yyval.command) = command_create_text((yyvsp[-10].number), (yyvsp[-8].number), (yyvsp[-6].text), (yyvsp[-3].text), (yyvsp[-1].number));
     }
-#line 1740 "build\\drawlang_parser.tab.c"
+#line 1740 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
   case 17: /* number: NUMBER  */
-#line 239 "src\\drawlang_parser.y"
+#line 239 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
     {
         (yyval.number) = (yyvsp[0].number);
     }
-#line 1748 "build\\drawlang_parser.tab.c"
+#line 1748 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
   case 18: /* string: STRING  */
-#line 246 "src\\drawlang_parser.y"
+#line 246 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
     {
         (yyval.text) = (yyvsp[0].text);
     }
-#line 1756 "build\\drawlang_parser.tab.c"
+#line 1756 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
   case 19: /* color_name: IDENTIFIER  */
-#line 253 "src\\drawlang_parser.y"
+#line 253 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
     {
         (yyval.text) = (yyvsp[0].text);
     }
-#line 1764 "build\\drawlang_parser.tab.c"
+#line 1764 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
     break;
 
 
-#line 1768 "build\\drawlang_parser.tab.c"
+#line 1768 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.c"
 
       default: break;
     }
@@ -1993,7 +1993,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 258 "src\\drawlang_parser.y"
+#line 258 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
 
 
 void yyerror(const char *message) {
@@ -2149,6 +2149,11 @@ static void normalize_expected_list(char *text) {
     char buffer[512];
     char *original;
     char *out;
+
+    if (strcmp(text, "end of file") == 0) {
+        strcpy(text, "LINE, RECT, CIRCLE, TEXT, EOF");
+        return;
+    }
 
     original = text;
     out = buffer;

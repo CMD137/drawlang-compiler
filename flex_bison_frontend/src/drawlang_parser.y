@@ -411,6 +411,11 @@ static void normalize_expected_list(char *text) {
     char *original;
     char *out;
 
+    if (strcmp(text, "end of file") == 0) {
+        strcpy(text, "LINE, RECT, CIRCLE, TEXT, EOF");
+        return;
+    }
+
     original = text;
     out = buffer;
     while (*text != '\0' && (size_t) (out - buffer) < sizeof(buffer) - 1U) {

@@ -1,6 +1,6 @@
-#line 1 "build\\drawlang_lexer.yy.c"
+#line 1 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_lexer.yy.c"
 
-#line 3 "build\\drawlang_lexer.yy.c"
+#line 3 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_lexer.yy.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -462,9 +462,9 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "src\\drawlang_lexer.l"
+#line 1 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 #define YY_NO_INPUT 1
-#line 4 "src\\drawlang_lexer.l"
+#line 4 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -498,9 +498,9 @@ static void string_reset(void);
 static void string_append(const char *text, size_t length);
 
 void drawlang_reset_lexer_state(void);
-#line 501 "build\\drawlang_lexer.yy.c"
+#line 501 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_lexer.yy.c"
 
-#line 503 "build\\drawlang_lexer.yy.c"
+#line 503 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_lexer.yy.c"
 
 #define INITIAL 0
 #define STRING_STATE 1
@@ -716,10 +716,10 @@ YY_DECL
 		}
 
 	{
-#line 41 "src\\drawlang_lexer.l"
+#line 41 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 
 
-#line 722 "build\\drawlang_lexer.yy.c"
+#line 722 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_lexer.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -775,7 +775,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 43 "src\\drawlang_lexer.l"
+#line 43 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 {
     int start_line = g_lexer_line;
     int start_column = g_lexer_column;
@@ -784,7 +784,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 49 "src\\drawlang_lexer.l"
+#line 49 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 {
     int start_line = g_lexer_line;
     int start_column = g_lexer_column;
@@ -793,7 +793,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 55 "src\\drawlang_lexer.l"
+#line 55 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 {
     int start_line = g_lexer_line;
     int start_column = g_lexer_column;
@@ -803,7 +803,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 62 "src\\drawlang_lexer.l"
+#line 62 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 {
     int start_line = g_lexer_line;
     int start_column = g_lexer_column;
@@ -813,7 +813,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 69 "src\\drawlang_lexer.l"
+#line 69 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 {
     int start_line = g_lexer_line;
     int start_column = g_lexer_column;
@@ -823,7 +823,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 76 "src\\drawlang_lexer.l"
+#line 76 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 {
     int start_line = g_lexer_line;
     int start_column = g_lexer_column;
@@ -833,7 +833,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 83 "src\\drawlang_lexer.l"
+#line 83 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 {
     int start_line = g_lexer_line;
     int start_column = g_lexer_column;
@@ -846,7 +846,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 93 "src\\drawlang_lexer.l"
+#line 93 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 {
     int start_line = g_lexer_line;
     int start_column = g_lexer_column;
@@ -857,7 +857,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 101 "src\\drawlang_lexer.l"
+#line 101 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 {
     int start_line = g_lexer_line;
     int start_column = g_lexer_column;
@@ -868,7 +868,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 109 "src\\drawlang_lexer.l"
+#line 109 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 {
     int start_line = g_lexer_line;
     int start_column = g_lexer_column;
@@ -879,7 +879,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 117 "src\\drawlang_lexer.l"
+#line 117 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 {
     int start_line = g_lexer_line;
     int start_column = g_lexer_column;
@@ -897,7 +897,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 132 "src\\drawlang_lexer.l"
+#line 132 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 {
     int start_line = g_lexer_line;
     int start_column = g_lexer_column;
@@ -911,7 +911,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 143 "src\\drawlang_lexer.l"
+#line 143 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 {
     int start_line = g_lexer_line;
     int start_column = g_lexer_column;
@@ -921,7 +921,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 150 "src\\drawlang_lexer.l"
+#line 150 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 {
     int start_line = g_lexer_line;
     int start_column = g_lexer_column;
@@ -938,7 +938,7 @@ YY_RULE_SETUP
 case 15:
 /* rule 15 can match eol */
 YY_RULE_SETUP
-#line 163 "src\\drawlang_lexer.l"
+#line 163 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 {
     int start_line = g_lexer_line;
     int start_column = g_lexer_column;
@@ -951,7 +951,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 173 "src\\drawlang_lexer.l"
+#line 173 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 {
     int start_line = g_lexer_line;
     int start_column = g_lexer_column;
@@ -965,7 +965,7 @@ YY_RULE_SETUP
 case 17:
 /* rule 17 can match eol */
 YY_RULE_SETUP
-#line 183 "src\\drawlang_lexer.l"
+#line 183 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 {
     int start_line = g_lexer_line;
     int start_column = g_lexer_column;
@@ -977,7 +977,7 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 case YY_STATE_EOF(STRING_STATE):
-#line 193 "src\\drawlang_lexer.l"
+#line 193 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 {
     report_lexical_error(g_string_start_line, g_string_start_column, "not found right \"");
     string_reset();
@@ -987,7 +987,7 @@ case YY_STATE_EOF(STRING_STATE):
 }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 201 "src\\drawlang_lexer.l"
+#line 201 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 {
     set_empty_location(&yylloc);
     return 0;
@@ -995,10 +995,10 @@ case YY_STATE_EOF(INITIAL):
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 206 "src\\drawlang_lexer.l"
+#line 206 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 ECHO;
 	YY_BREAK
-#line 1001 "build\\drawlang_lexer.yy.c"
+#line 1001 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_lexer.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -1965,7 +1965,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 206 "src\\drawlang_lexer.l"
+#line 206 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_lexer.l"
 
 
 void drawlang_reset_lexer_state(void) {

@@ -35,8 +35,8 @@
    especially those whose name start with YY_ or yy_.  They are
    private implementation details that can be changed or removed.  */
 
-#ifndef YY_YY_BUILD_DRAWLANG_PARSER_TAB_H_INCLUDED
-# define YY_YY_BUILD_DRAWLANG_PARSER_TAB_H_INCLUDED
+#ifndef YY_YY_C_USERS_29924_DESKTOP_KS_FLEX_BISON_FRONTEND_BUILD_FLEX_BISON_FRONTEND_PARSER_TAB_H_INCLUDED
+# define YY_YY_C_USERS_29924_DESKTOP_KS_FLEX_BISON_FRONTEND_BUILD_FLEX_BISON_FRONTEND_PARSER_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -78,7 +78,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 122 "src\\drawlang_parser.y"
+#line 122 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\src\\drawlang_parser.y"
 
     double number;
     char *text;
@@ -86,7 +86,7 @@ union YYSTYPE
     Command *command;
     Program *program;
 
-#line 90 "build\\drawlang_parser.tab.h"
+#line 90 "C:\\Users\\29924\\Desktop\\文档\\大三\\编译原理\\ks\\flex_bison_frontend\\build\\flex_bison_frontend_parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -115,4 +115,4 @@ extern YYLTYPE yylloc;
 int yyparse (void);
 
 
-#endif /* !YY_YY_BUILD_DRAWLANG_PARSER_TAB_H_INCLUDED  */
+#endif /* !YY_YY_C_USERS_29924_DESKTOP_KS_FLEX_BISON_FRONTEND_BUILD_FLEX_BISON_FRONTEND_PARSER_TAB_H_INCLUDED  */
