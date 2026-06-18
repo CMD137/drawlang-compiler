@@ -1,0 +1,13 @@
+{
+  "commands": [
+    {
+      "type": "circle",
+      "cx": 760,
+      "cy": 300,
+      "radius": 80,
+      "color": "red",
+      "lineWidth": 2,
+      "fill": null
+    }
+  ]
+}

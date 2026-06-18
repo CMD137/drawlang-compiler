@@ -71,6 +71,7 @@ public class LRParser {
      * @return 构造完成的程序根节点
      */
     public ProgramNode parse() {
+        // 检查分析表是否已填充ACTION项
         if (table.isActionTableEmpty()) {
             throw new IllegalStateException(
                 "LR parsing table skeleton is ready, but ACTION entries have not been populated yet."
@@ -79,14 +80,18 @@ public class LRParser {
 
         initialize();
         while (true) {
+            // 获取当前状态和前瞻符号
             int state = currentState();
             GrammarSymbol lookaheadSymbol = GrammarSymbol.fromTokenType(lookahead.getType());
+            // 查ACTION表：根据当前状态和前瞻符号确定动作
             ActionEntry action = table.getAction(state, lookaheadSymbol);
 
+            // 错误检测：动作不存在或为ERROR时抛出语法错误
             if (action == null || action.getType() == ActionType.ERROR) {
                 throw syntaxError(state, lookahead);
             }
 
+            // 执行动作：SHIFT移进、REDUCE归约、ACCEPT接受
             switch (action.getType()) {
                 case SHIFT:
                     shift(action.getValue());

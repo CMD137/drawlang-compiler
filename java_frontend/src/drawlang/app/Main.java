@@ -9,13 +9,16 @@ import java.nio.file.Path;
 import java.util.List;
 
 /**
- * Main debug entry for the current Java frontend.
+ * Main entry for the current Java frontend.
  */
 public class Main {
     public static void main(String[] args) throws IOException {
-        Path inputPath = args.length > 0
-            ? Path.of(args[0])
-            : Path.of("samples", "test.draw");
+        if (args.length == 0) {
+            printUsage();
+            return;
+        }
+
+        Path inputPath = Path.of(args[0]);
 
         if (!FrontendSupport.validateInputFile(inputPath)) {
             return;
@@ -35,5 +38,9 @@ public class Main {
         } catch (ParseException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    private static void printUsage() {
+        System.out.println("Usage: java -jar java_frontend.jar <input.draw>");
     }
 }

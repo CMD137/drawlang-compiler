@@ -2,6 +2,10 @@
 ~$*.doc
 ~$*.docx
 
+# private 
+.doc
+.pptx
+
 # IntelliJ IDEA metadata
 java_frontend/.idea/
 java_frontend/*.iml
@@ -9,6 +13,7 @@ java_frontend/out/
 
 # Java build output
 java_frontend/bin/
+java_frontend/build/classes/
 
 # Python cache
 __pycache__/

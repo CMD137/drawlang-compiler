@@ -148,21 +148,14 @@ public class Lexer {
      * 返回的 lexeme 不包含首尾双引号，只保留字符串内容本身。
      */
     private Token scanString(int startLine, int startColumn) {
-        // 先吃掉开头的双引号
+       //第一个引号
         advance();
-        StringBuilder builder = new StringBuilder();
-        while (!isAtEnd() && peek() != '"') {
-            char current = peek();
-            if (current == '\n' || current == '\r') {
-                throw error(startLine, startColumn, "not found right \"");
-            }
-            builder.append(advance());
+        StringBuilder sb =new StringBuilder();
+        while(!isAtEnd()&&peek()!='"'){
+            char t = peek();
+            if(t=='\n'||t=='\r')
+
         }
-        if (isAtEnd()) {
-            throw error(startLine, startColumn, "not found right \"");
-        }
-        advance();
-        return new Token(TokenType.STRING, builder.toString(), startLine, startColumn);
     }
 
     /**
